@@ -1,6 +1,6 @@
 import React from 'react';
 // import {Button} from 'components/common';
-import {createGlobalStyle} from 'styled-components';
+import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Login from 'components/pages/Login';
 import Home from 'components/pages/Home';
@@ -10,27 +10,27 @@ const GlobalStyle = createGlobalStyle`
       background: white;
       min-height: 100vh;
       margin: 0;
-      color: black;
+      color: ${p => p.theme.secondaryColor};
       font-family: 'Kaushan Script';
     }
 `;
 
+const theme = {
+  primaryColor: '#f8049c',
+  secondaryColor: '#fdd54f'
+}
+
 const App = () => {
   return (
-    <div>
-      <GlobalStyle />
-      {/* <h1>App</h1>
-      <Button>Primary</Button>
-      <Button secondary >Secondary</Button>
-      <Button disabled>disabled</Button>
-      <Button large>large</Button> */}
-      <BrowserRouter>
-        <Switch>
-          <Route path="/login"><Login /></Route>
-          <Route path="/"><Home /></Route>
-        </Switch>
-      </BrowserRouter>
-    </div>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <BrowserRouter>
+          <Switch>
+            <Route path="/login"><Login /></Route>
+            <Route path="/"><Home /></Route>
+          </Switch>
+        </BrowserRouter>
+      </ThemeProvider>
 
   );
 }
